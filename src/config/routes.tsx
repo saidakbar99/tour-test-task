@@ -1,10 +1,7 @@
 import { ISwitchItem } from "react-declarative";
 
-import DashboardPage from "../pages/DashboardPage";
-import TodoListPage from "../pages/TodoListPage";
-import TodoOnePage from "../pages/TodoOnePage";
-import TodoCardPage from "../pages/TodoCardPage";
-import TodoRecordPage from "../pages/TodoRecordPage";
+import UsersListPage from "../pages/UsersListPage";
+import UserPage from "../pages/UserPage";
 
 import ErrorPage from "../pages/ErrorPage";
 
@@ -15,33 +12,18 @@ interface IRouteItem extends ISwitchItem {
 export const routes: IRouteItem[] = [
   {
     path: "/",
-    sideMenu: "root.example_pages.dashboard",
-    redirect: "/dashboard",
+    sideMenu: "root.example_pages.users",
+    redirect: "/users",
   },
   {
-    path: "/dashboard",
-    sideMenu: "root.example_pages.dashboard",
-    element: DashboardPage,
+    path: "/users",
+    sideMenu: "root.example_pages.users",
+    element: UsersListPage,
   },
   {
-    path: "/todos_list",
-    sideMenu: "root.example_pages.todos_list",
-    element: TodoListPage,
-  },
-  {
-    path: "/todos_list/:id",
-    sideMenu: "root.example_pages.todos_list",
-    element: TodoOnePage,
-  },
-  {
-    path: "/todos_card",
-    sideMenu: "root.example_pages.todos_card",
-    element: TodoCardPage,
-  },
-  {
-    path: "/todos_card/:id",
-    sideMenu: "root.example_pages.todos_card",
-    element: TodoRecordPage,
+    path: "/users/:id",
+    sideMenu: "root.example_pages.users",
+    element: UserPage,
   },
   {
     path: "/error-page",
@@ -56,9 +38,7 @@ export const routes: IRouteItem[] = [
 ];
 
 export const sideMenuClickMap: Record<string, string> = {
-  "root.example_pages.todos_list": "/todos_list",
-  "root.example_pages.todos_card": "/todos_card",
-  "root.example_pages.dashboard": "/dashboard",
+  "root.example_pages.users": "/users",
 };
 
 export default routes;

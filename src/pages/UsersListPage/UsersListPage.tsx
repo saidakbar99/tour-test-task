@@ -1,9 +1,7 @@
 import {
   List,
-  FieldType,
   ColumnType,
   ActionType,
-  TypedField,
   IColumn,
   IListAction,
   useArrayPaginator,
@@ -18,40 +16,55 @@ import history from "../../helpers/history";
 
 import useLoader from "../../hooks/useLoader";
 
-const filters: TypedField[] = [
-  {
-    type: FieldType.Text,
-    name: "title",
-    title: "Title",
-  },
-  {
-    type: FieldType.Checkbox,
-    name: "completed",
-    title: "Completed",
-  },
-];
-
 const columns: IColumn[] = [
   {
     type: ColumnType.Text,
-    field: "id",
-    headerName: "ID",
-    secondary: true,
-    width: () => 50,
+    headerName: "Имя",
+    primary: true,
+    field: "firstName",
+    width: "100",
   },
   {
     type: ColumnType.Text,
-    headerName: "Title",
+    headerName: "Фамилия",
     primary: true,
-    field: "title",
-    width: (fullWidth) => Math.max(fullWidth - 350, 200),
+    field: "lastName",
+    width: "100",
   },
   {
-    type: ColumnType.CheckBox,
-    headerName: "Completed",
+    type: ColumnType.Text,
+    headerName: "Возраст",
     primary: true,
-    field: "completed",
-    width: () => 100,
+    field: "age",
+    width: "100",
+  },
+  {
+    type: ColumnType.Text,
+    headerName: "Фамилия",
+    primary: true,
+    field: "lastName",
+    width: "100",
+  },
+  {
+    type: ColumnType.Text,
+    headerName: "Должность",
+    primary: true,
+    field: "jobTitle",
+    width: "100",
+  },
+  {
+    type: ColumnType.Text,
+    headerName: "Место работы",
+    primary: true,
+    field: "jobArea",
+    width: "100",
+  },
+  {
+    type: ColumnType.Text,
+    headerName: "Страна",
+    primary: true,
+    field: "country",
+    width: "100",
   },
   {
     type: ColumnType.Action,
@@ -93,7 +106,7 @@ const rowActions = [
 
 const heightRequest = () => window.innerHeight - 75;
 
-export const TodoListPage = () => {
+export const UsersListPage = () => {
   const { setLoader } = useLoader();
 
   const handler = useArrayPaginator(
@@ -105,25 +118,36 @@ export const TodoListPage = () => {
   );
 
   const handleRowActionsClick = (action: string, row: any) => {
-    alert(JSON.stringify({ row, action }, null, 2));
+    fetchApi(`/users/${row?.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   };
 
   const handleAction = (action: string) => {
-    alert(action);
+    if (action === 'add-action') {
+      fetchApi(`/users/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => history.push(`/users/${res?.id}`))
+    }
   };
 
   const handleClick = (row: any) => {
-    history.push(`/todos_list/${row.id}`);
+    history.push(`/users/${row.id}`);
   };
 
   return (
     <List
-      title="Todo list"
+      title="Список профилей"
       filterLabel="Filters"
       heightRequest={heightRequest}
       rowActions={rowActions}
       actions={actions}
-      filters={filters}
       columns={columns}
       handler={handler}
       onRowAction={handleRowActionsClick}
@@ -134,4 +158,4 @@ export const TodoListPage = () => {
   );
 };
 
-export default TodoListPage;
+export default UsersListPage;

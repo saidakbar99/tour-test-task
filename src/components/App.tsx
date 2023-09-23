@@ -41,7 +41,6 @@ const Fragment = () => <></>;
 
 const App = observer(() => {
   const item = useRouteItem();
-
   const { loader, setLoader } = useLoader();
   const handleLoadStart = () => setLoader(true);
   const handleLoadEnd = () => setLoader(false);
@@ -51,7 +50,7 @@ const App = observer(() => {
     //                 ^^^^^^^^^^^^^^^^^^^^^^^^
     <Scaffold2
       appName={CC_APP_NAME}
-      activeOptionPath={item?.sideMenu || "root.example_pages.dashboard"}
+      activeOptionPath={item?.sideMenu || "root.example_pages.users"}
       loading={loader}
       options={sidemenu}
       actions={scaffoldmenu}
